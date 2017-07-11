@@ -28,12 +28,21 @@ class App extends Component {
   }
 
   componentWillMount() {
+    this.loadQuestions()
    // const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));
     console.log(quizQuestions);
     this.setState({
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].options
     });
+  }
+
+  loadQuestions() {
+    return $.getJSON('localhost:8080/getAllQuestionPapers')
+      .then((data) => {
+        console.log(data);
+        this.setState({ person: data.results });
+      });
   }
 
 /*

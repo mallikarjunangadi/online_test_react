@@ -2,10 +2,15 @@
   "name": "react-quiz",
   "version": "0.0.1",
   "private": true,
+  "main": "server.js",
   "devDependencies": {
     "react-scripts": "0.2.1"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "method-override": "^2.3.9",
+    "mongodb": "^2.2.30",
     "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.3.0",
     "react-addons-update": "^15.3.0",
