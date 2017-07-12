@@ -1,41 +1,105 @@
-var db = require('../config/db');
+var dbconfig = require('../config/db');
+
+var quizQuestions = {
+    paperId : "2",
+    questions: [
+        {
+            question: "What franchise would you rather play a game from?",
+            options: [
+                "Microsoft",
+                "Micromax",
+                "Sony",
+                "Hallo"
+            ],
+            answer: "Micromax"
+        },
+        {
+            question: "Which one is correct team name in NBA?",
+            options: [
+                "New York Bulls",
+                "Los Angeles Kings",
+                "Golden State Warriros",
+                "Huston Rocket"
+            ],
+            answer: "Huston Rocket"
+        },
+        {
+            question: "5 + 7 = ?",
+            options: [
+                "10",
+                "11",
+                "12",
+                "13"
+            ],
+            answer: "12"
+        },
+        {
+            question: "12 - 8 = ?",
+            options: [
+                "1",
+                "2",
+                "3",
+                "4"
+            ],
+            answer: "4"
+        },
+        {
+            question: "12 - 8 = ?",
+            options: [
+                "Entomology is the science that studies",
+                "Behavior of human beings",
+                "Insects",
+                "The origin and history of technical and scientific terms",
+                "The formation of rocks"
+            ],
+            answer: "Behavior of human beings"
+        }
+
+    ]
+}
 
 module.exports = function (app, db) {
-
-    app.post('/addQuestionPaper', function (req, res) {
+    console.log('enterd routes');
+    app.get('/addQuestionPaper', function (req, res) {
         var newQuestionPaper = req.body;
-        db.collection(db.collection_name).insert(newQuestionPaper, function (err, result) {
+        db.collection(dbconfig.collection_name).insert(quizQuestions, function (err, result) {
             if (err) {
                 console.log(err);
                 res.send({ 'message': 'unable to add question paper', done: false });
             } else {
+                console.log(result);
                 res.send({ 'message': 'question paper added successfully', done: true });
             }
         })
     })
 
     app.get('/getAllQuestionPapers', function (req, res) {
-        db.collection(db.collection_name).find({}, function (err, result) {
+
+        db.collection(dbconfig.collection_name).find().toArray(function (err, result) {
             if (err) {
                 console.log(err);
-                res.send()
+                
+            } else {
+                console.log(result);
+                res.send({"data":result, done:true})
             }
         })
     })
 
-    app.get('/notes/:id', (req, res) => {
+    app.get('/paper/:id', (req, res) => {
         var id = req.params.id;
-        var details = { '_id': new ObjectID(id) };
-        db.collection(db.collection_name).findOne(details, function(err, result) {
+        var details = { "paperId": id };
+        db.collection(dbconfig.collection_name).findOne(details, function (err, result) {
             if (err) {
-                res.send({ 'message': 'An error has occurred', done:false });
+                res.send({ 'message': 'An error has occurred', done: false });
             } else {
                 res.send(result);
             }
         });
     });
 
-    app.get('*', function(req, res) {
-		res.sendFile(__dirname +'/src/index.html');
-	});   
+    app.get('/', function (req, res) {
+        console.log('entered');
+        res.sendFile(__dirname + '/src/index.html');
+    });
 }
