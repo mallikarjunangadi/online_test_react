@@ -1,4 +1,5 @@
-var dbconfig = require('../config/db');
+var dbconfig = require('../dbconfig/db');
+var path = require('path');
 
 var quizQuestions = {
     paperId : "2",
@@ -12,7 +13,7 @@ var quizQuestions = {
                 "Hallo"
             ],
             answer: "Micromax"
-        },
+        }, 
         {
             question: "Which one is correct team name in NBA?",
             options: [
@@ -58,9 +59,11 @@ var quizQuestions = {
     ]
 }
 
-module.exports = function (app, db) {
+module.exports = function (app, db, rootPath) {
     console.log('enterd routes');
-    app.get('/addQuestionPaper', function (req, res) {
+    
+
+    app.post('/addQuestionPaper', function (req, res) {
         var newQuestionPaper = req.body;
         db.collection(dbconfig.collection_name).insert(quizQuestions, function (err, result) {
             if (err) {
@@ -74,7 +77,7 @@ module.exports = function (app, db) {
     })
 
     app.get('/getAllQuestionPapers', function (req, res) {
-
+ 
         db.collection(dbconfig.collection_name).find().toArray(function (err, result) {
             if (err) {
                 console.log(err);
@@ -86,7 +89,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/paper/:id', (req, res) => {
+    app.get('/paper/:id', function(req, res) {
         var id = req.params.id;
         var details = { "paperId": id };
         db.collection(dbconfig.collection_name).findOne(details, function (err, result) {
@@ -94,12 +97,12 @@ module.exports = function (app, db) {
                 res.send({ 'message': 'An error has occurred', done: false });
             } else {
                 res.send(result);
-            }
-        });
-    });
+            } 
+        });  
+    })
 
-    app.get('/', function (req, res) {
-        console.log('entered');
-        res.sendFile(__dirname + '/src/index.html');
-    });
+    app.get('/*', function(req, res) { 
+        console.log(rootPath +'/src/client/app/index.html');
+        res.sendFile(path.resolve(rootPath +'/src/client/index.html'));
+    });    
 }
