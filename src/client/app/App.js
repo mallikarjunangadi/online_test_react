@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react'; 
 //import quizQuestions from './api/quizQuestions';
 import Quiz from './components/Quiz';
 //import Result from './components/Result';
-
-class App extends Component {
+ 
+class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -27,11 +27,13 @@ class App extends Component {
   componentWillMount() {
     this.loadQuestions()
    // const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));
+/*    
     console.log(quizQuestions);
     this.setState({
       question: quizQuestions[0].question,
       answerOptions: quizQuestions[0].options
     });
+  */ 
   }
 
   loadQuestions() {

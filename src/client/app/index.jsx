@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, HashRouter, Link, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 //import { BrowserRouter } from 'react-router-dom'HashRouter
 import QuizQuestions from './App';
-//import './index.css'; 
+import './index.css'; 
 import NavBar from './main/Navbarpage.jsx'; 
 import Login from './main/Login.jsx'; 
   
@@ -55,9 +55,9 @@ const App = () => (
 )
 
 ReactDOM.render((
-  <HashRouter>
+  <BrowserRouter>
     <App />
-  </HashRouter>
+  </BrowserRouter>
 ), document.getElementById('root'))
 
 /*
