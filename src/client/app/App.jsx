@@ -1,6 +1,6 @@
 import React from 'react'; 
 //import quizQuestions from './api/quizQuestions';
-import Quiz from './components/Quiz';
+import Quiz from './components/Quiz.jsx'; 
 //import Result from './components/Result';
  
 class App extends React.Component {
@@ -15,13 +15,15 @@ class App extends React.Component {
       answerOptions: [],
       answer: '',
       userAnswers: [],
-      result: '' 
+ //     result: '',
+      quizQuestions: [] 
     };
-
+ 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.goToPreviousQuestion = this.goToPreviousQuestion.bind(this);
     this.endTest = this.endTest.bind(this);
+    this.loadQuestions = this.loadQuestions.bind(this);
   }
 
   componentWillMount() {
@@ -37,17 +39,19 @@ class App extends React.Component {
   }
 
   loadQuestions() {
-    return $.getJSON('localhost:8080/paper/1')
+    console.log('eneterd'); 
+    return $.get('http://localhost:8080/paper/1')
       .then((data) => {
-        console.log(data);
-        this.setState({ 
-          question: data.question,
-          answerOptions : data.options 
+        console.log(data.questions);   
+        this.setState({  
+          quizQuestions: data.questions,
+          question: data.questions[0].question, 
+          answerOptions : data.questions[0].options  
         });
       });
   }
 
-/*
+ /*
   shuffleArray(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -90,7 +94,7 @@ class App extends React.Component {
 
   goToNextQuestion() {
     console.log(this.state.questionId);
-    if (this.state.questionId < quizQuestions.length) {
+    if (this.state.questionId < this.state.quizQuestions.length) {
         this.setNextQuestion()
     } else {
       //  this.setResults(this.getResults())
@@ -130,8 +134,8 @@ class App extends React.Component {
     this.setState({
         counter: counter,
         questionId: questionId,
-        question: quizQuestions[counter].question,
-        answerOptions: quizQuestions[counter].options,
+        question: this.state.quizQuestions[counter].question,
+        answerOptions: this.state.quizQuestions[counter].options,
         answer: this.state.userAnswers[counter] || ''
     });
   }
@@ -143,8 +147,8 @@ class App extends React.Component {
     this.setState({
         counter: counter,
         questionId: questionId,
-        question: quizQuestions[counter].question,
-        answerOptions: quizQuestions[counter].options,
+        question: this.state.quizQuestions[counter].question,
+        answerOptions: this.state.quizQuestions[counter].options,
         answer: this.state.userAnswers[counter] || ''
     });
   }
@@ -180,7 +184,7 @@ endTest() {
         answerOptions={this.state.answerOptions}
         questionId={this.state.questionId}
         question={this.state.question}
-        questionTotal={quizQuestions.length}
+        questionTotal={this.state.quizQuestions.length}
         onAnswerSelected={this.handleAnswerSelected}
         goToNext={this.goToNextQuestion}
         goToPrevious={this.goToPreviousQuestion}

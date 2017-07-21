@@ -22,7 +22,7 @@ class Login extends React.Component {
   login(e) {
     e.preventDefault();
     if (this.state.user === '123' && this.state.password === '123') {
-      alert("Login success");
+     // alert("Login success");
       console.log("login success");
       //    browserHistory.push('/quiz');
       this.props.history.push('/quiz')

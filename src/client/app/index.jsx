@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 //import { BrowserRouter } from 'react-router-dom'HashRouter
-import QuizQuestions from './App';
+import QuizQuestions from './App.jsx'; 
 import './index.css'; 
 import NavBar from './main/Navbarpage.jsx'; 
 import Login from './main/Login.jsx'; 

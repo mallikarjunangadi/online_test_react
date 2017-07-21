@@ -91,6 +91,7 @@ module.exports = function (app, db, rootPath) {
 
     app.get('/paper/:id', function(req, res) {
         var id = req.params.id;
+        console.log('entered api')
         var details = { "paperId": id };
         db.collection(dbconfig.collection_name).findOne(details, function (err, result) {
             if (err) {
