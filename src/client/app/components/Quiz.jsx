@@ -54,7 +54,7 @@ Quiz.propTypes = {
   answerOptions: React.PropTypes.array.isRequired,
   question: React.PropTypes.string.isRequired,
   questionId: React.PropTypes.number.isRequired,
-  questionTotal: React.PropTypes.number.isRequired,
+  questionTotal: React.PropTypes.number.isRequired, 
   onAnswerSelected: React.PropTypes.func.isRequired
 };
 

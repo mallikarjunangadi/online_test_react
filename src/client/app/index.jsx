@@ -6,6 +6,7 @@ import QuizQuestions from './App.jsx';
 import './index.css'; 
 import NavBar from './main/Navbarpage.jsx'; 
 import Login from './main/Login.jsx'; 
+import UserHome from './components/UserHome.jsx'; 
   
 /*
 const authenticate = (nextState, replace) => {
@@ -29,7 +30,9 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/login' component={Login}/>
-      <Route path='/quiz' component={QuizQuestions}/>
+      <Route path='/userHome' component={UserHome}/>
+      <Route exact path='/quiz' component={QuizQuestions}/>
+      <Route exact path='/quiz/:id' component={QuizQuestions}/>
     </Switch>
   </main>
 )
